@@ -19,7 +19,7 @@ export let  teamData = [
     },  
 
     {
-        sNO : 4,
+        sNo : 4,
         name : 'Jay Rajeshkumar Patel',
         githubId : 'pateljr1',
         discordId : 'pateljr1',
