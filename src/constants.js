@@ -11,5 +11,11 @@ export let  teamData = [
         githubId : 'krishnavamsi-kp864',
         discordId : 'krishnavamsi2497'
     },
+    {
+        sNo : 3,
+        name : 'Prem Reddy Nalla',
+        githubId : 'premreddyNalla',
+        discordId : 'Premreddy Nalla'
+    },  
 
 ]
