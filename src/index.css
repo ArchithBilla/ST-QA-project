@@ -1,0 +1,45 @@
+.logoTitle{
+    color : rgb(12, 155, 222);
+  
+ }
+ #logo_link{
+    text-decoration: none;
+ }
+ .signinButton{
+   position : fixed;
+   right : 0;
+   border : 0
+ }
+ .signin_section{
+    display: flex;
+    justify-content: center;
+ }
+ .sign_in_form{
+    margin-top : 150px;
+    align-self: center;
+ }
+ .signup_button{
+    margin-bottom : 2px;
+    margin-left : 3px
+ }
+ .submit_button{
+    display: flex;
+    padding: 20px;
+ }
+ #cancel_button{
+    float: left;
+ 
+ 
+ }
+ #submit_button{
+    float: right;
+    margin-left: 100px;
+ }
+ .home_container{
+    position: fixed;
+    left: 35%;
+    top: 50%;
+  
+ }
+ 
+ 
