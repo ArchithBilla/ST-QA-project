@@ -7,7 +7,7 @@ import {  Link } from "react-router-dom";
 
 
 
-export default function Navigation() {
+export default function Navigation(props) {
 let isUserVerified = false
    return (
     <>
@@ -15,7 +15,7 @@ let isUserVerified = false
     <Link to = '/' id='logo_link'>  <h2 className='logoTitle'>J NEWS</h2></Link>
        <Container>
            <div className = "signinButton">
-      <Link to = 'signin'> <Button variant="outline-info">{isUserVerified ?  "Sign out" : "Sign in" } </Button>{' '}</Link>
+     {props.page === 'Home' ?  (<Link to = 'signin'> <Button variant="outline-info">{isUserVerified ?  "Sign out" : "Sign in" } </Button>{' '}</Link>) : null }
        </div>
        </Container>
      </Navbar>

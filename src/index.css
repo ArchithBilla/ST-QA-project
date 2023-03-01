@@ -17,6 +17,7 @@
  .sign_in_form{
     margin-top : 150px;
     align-self: center;
+    width : 300px
  }
  .signup_button{
     margin-bottom : 2px;
@@ -39,7 +40,8 @@
     position: fixed;
     left: 35%;
     top: 50%;
-  
  }
+
+
  
  
