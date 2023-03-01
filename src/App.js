@@ -2,24 +2,22 @@ import Navigation from "./Navigation";
 import Signin from "./Signin";
 import Signup from "./Signup";
 import Home from "./Home";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 export default function App() {
- // const [path, setPath] = useState("/");
-
-
- // const findPath = (pathName)=>{
- //   setPath(pathName)
- // }
-// console.log(path)
+  const [page, setPage] = useState('')
+const pageStatus = (data)=>{
+  setPage(data)
+}
  return (
    <>
-  <Navigation />
+  <Navigation page = {page}/>
   <Routes>
-  <Route path={'/'} element={<Home />}></Route>
-  <Route path="signin" element={<Signin />} />
-  <Route path="signin/signup" element={<Signup/> } />
+  <Route path={'/'} element={<Home pageStatus = {pageStatus} />}></Route>
+  <Route path="signin" element={<Signin pageStatus = {pageStatus}/>} />
+  <Route path="signin/signup" element={<Signup pageStatus = {pageStatus}/> } />
   </Routes>
   </>
  );
