@@ -8,16 +8,21 @@ import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 export default function App() {
   const [page, setPage] = useState('')
+  const [authUser,setauthUser] = useState('')
 const pageStatus = (data)=>{
   setPage(data)
 }
+const authStatus = (data)=>{
+  console.log(data)
+  setauthUser(data)
+}
  return (
    <>
-  <Navigation page = {page}/>
+  <Navigation page = {page} authUser = {authUser} authStatus = {authStatus}/>
   <Routes>
-  <Route path={'/'} element={<Home pageStatus = {pageStatus} />}></Route>
-  <Route path="signin" element={<Signin pageStatus = {pageStatus}/>} />
-  <Route path="signin/signup" element={<Signup pageStatus = {pageStatus}/> } />
+  <Route path={'/'} element={<Home pageStatus = {pageStatus} authUser = {authUser} />}></Route>
+  <Route path="signin" element={<Signin pageStatus = {pageStatus} authStatus = {authStatus}/>} />
+  <Route path="signin/signup" element={<Signup pageStatus = {pageStatus} authStatus = {authStatus}/> } />
   </Routes>
   </>
  );

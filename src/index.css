@@ -1,6 +1,14 @@
 .logoTitle{
     color : rgb(12, 155, 222);
+    margin-top: 5%;
   
+ }
+ .userName{
+   color : white;
+   position : fixed;
+   right : 0;
+   border : 5;
+   margin-top: 80px;
  }
  #logo_link{
     text-decoration: none;
@@ -8,7 +16,7 @@
  .signinButton{
    position : fixed;
    right : 0;
-   border : 0
+   border : 0;
  }
  .signin_section{
     display: flex;
