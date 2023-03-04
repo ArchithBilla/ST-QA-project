@@ -1,25 +1,30 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+
 
 
 export default function Signup(props) {
   props.pageStatus('Signup')
+  const navigate = useNavigate();
 
   let [userName, setUserNAme] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
-  const [errorMassage, setErrorMassage] = useState("");
+  const [error, setErrorMassage] = useState("");
 
   const handleUserNameChange = (e) => {
+    setErrorMassage('')
     setUserNAme(e.target.value);
   };
   const handlePasswordChange = (e) => {
+    setErrorMassage('')
     setPassword(e.target.value);
   };
   const handleConfirmPasswordChange = (e) => {
+    setErrorMassage('')
     setconfirmPassword(e.target.value);
   };
   const spaceRemoval = (data) => {
@@ -38,16 +43,24 @@ export default function Signup(props) {
       confirmPassword.length > 0 &&
       userName.length
     ) {
-      alert("Signup is successful");
-    } else alert("please fill the form completely");
+      axios
+      .post("http://localhost:8000/signup", {
+        userName: userName,
+        password: password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data === "User existed or rename the username") {
+          setErrorMassage("User existed or rename the username");
+        } else {
+          alert("Signup is successful");
+          props.authStatus(response.data.userName)
+          navigate("/");
+        }
+      });
+    } else setErrorMassage("please fill the form completely");
 
-    axios.post("https://reqres.in/api/login", {
-  user_email: userName,
-  password: password
-    })
-    .then((response) => {
-      console.log(response);
-    });
+   
   };
 
   const runTimeUsernameValidation = () => {
@@ -66,7 +79,6 @@ export default function Signup(props) {
   };
 
   const runTimeConfirmPasswordValidation = () => {
-    console.log(confirmPassword);
     if (confirmPassword.length > 0) {
       if (confirmPassword === password) {
         return false;
@@ -134,6 +146,8 @@ export default function Signup(props) {
               </Form.Text>
             ) : null}
           </Form.Group>
+          {error !== ''  && <><h6 style={{color : 'red'}}>{error}</h6><br/> </>}
+
 
           <div className="submit_button">
               <Button id="cancel_button" variant="danger" onClick={cancelHandler}>

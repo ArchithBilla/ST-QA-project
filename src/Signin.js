@@ -1,34 +1,50 @@
-import axios from 'axios'
+import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Signin(props) {
-  const url = ''
-  props.pageStatus('Signin')
+  const navigate = useNavigate();
+  props.pageStatus("Signin");
   const [userName, setUserNAme] = useState("");
   const [password, setPassword] = useState("");
+  const [error,serError] = useState("")
 
-  const [errorMassage, setErrorMassage] = useState("");
 
   const handleUserNameChange = (e) => {
+    serError('')
     setUserNAme(e.target.value);
   };
   const handlePasswordChange = (e) => {
+    serError('')
     setPassword(e.target.value);
   };
 
-  const submitHandler = async  () => {
-    console.log(userName,password)
-axios.post("https://reqres.in/api/login", {
-  user_email: userName,
-  password: password
-    })
-    .then((response) => {
-      console.log(response);
-    });
+  const submitHandler =  () => {
+    
+    if (userName === "" || password === "") {
+      alert("Fill all the fields");
+    } else {
+      axios
+      .post("http://localhost:8000/signin", {
+        userName: userName,
+        password: password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.statusMessage === "Signup successful") {
+          props.authStatus(response.data.userName)
+          navigate("/");
+        } else {
+        //  alert('Invalid credentials or username not existed')
+         serError('Invalid credentials or username not existed')
+        }
+      });
+    }
   };
+
   const cancelHandler = () => {
     setUserNAme("");
     setPassword("");
@@ -60,6 +76,7 @@ axios.post("https://reqres.in/api/login", {
               isInvalid={false}
             />
           </Form.Group>
+          {error !== ''  && <><h6 style={{color : 'red'}}>{error}</h6><br/> </>}
           <Form.Text className="text-muted">Don't have an accout?</Form.Text>
           <Button className="signup_button" variant="link">
             {" "}
