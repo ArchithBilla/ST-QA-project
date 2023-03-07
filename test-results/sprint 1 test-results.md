@@ -26,11 +26,11 @@
 |     FT015    |                jay               |    pass   |     Num Lock key is enabled during password entry.    |
 |     FT016    |                jay               |    pass   |     Verification system does not accept passwords     |
 |              |                                  |           |                                                       |
-|    API001    |               prem               |    pass   |                  requested succeeded                  |
-|    API002    |               prem               |    pass   |        server could not understand the request        |
-|    API003    |               prem               |    pass   |               request is not authorised               |
-|    API004    |               prem               |    pass   |                       Forbidden                       |
-|    API005    |               prem               |    pass   |                       Not found                       |
-|    API006    |               prem               |    pass   |                 INTERNAL SERVER ERROR                 |         |                                  |           |                                                       |
+|    API001    |               prem               |      |                  requested succeeded                  |
+|    API002    |               prem               |      |        server could not understand the request        |
+|    API003    |               prem               |      |               request is not authorised               |
+|    API004    |               prem               |       |                       Forbidden                       |
+|    API005    |               prem               |      |                       Not found                       |
+|    API006    |               prem               |      |                 INTERNAL SERVER ERROR                 |         |                                  |           |                                                       |
 |     DA001    |            vivekananda           |    pass   |                 available in database                 |
 |     DA002    |            vivekananda           |    pass   |                the data is saving or not              |
