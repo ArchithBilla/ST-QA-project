@@ -26,11 +26,11 @@
 |     FT015    |                jay               |    pass   |     Num Lock key is enabled during password entry.    |
 |     FT016    |                jay               |    pass   |     Verification system does not accept passwords     |
 |              |                                  |           |                                                       |
-|    API001    |               prem               |      |                  requested succeeded                  |
-|    API002    |               prem               |      |        server could not understand the request        |
-|    API003    |               prem               |      |               request is not authorised               |
-|    API004    |               prem               |       |                       Forbidden                       |
-|    API005    |               prem               |      |                       Not found                       |
-|    API006    |               prem               |      |                 INTERNAL SERVER ERROR                 |         |                                  |           |                                                       |
+|    API001    |               prem               |      |                                  |
+|    API002    |               prem               |      |             |
+|    API003    |               prem               |      |                            |
+|    API004    |               prem               |       |                                      |
+|    API005    |               prem               |      |                                          |
+|    API006    |               prem               |      |                                |         |                                  |           |                                                       |
 |     DA001    |            vivekananda           |    pass   |                 available in database                 |
 |     DA002    |            vivekananda           |    pass   |                the data is saving or not              |
