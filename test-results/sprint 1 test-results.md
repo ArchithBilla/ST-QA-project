@@ -1,4 +1,4 @@
-**2 Iterations**
+**1st Iteration**
 
 | Test case ID | Name of the person  who run test | pass/fail | comments                                              |
 |--------------|----------------------------------|-----------|-------------------------------------------------------|
