@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 export default function Signin(props) {
   const navigate = useNavigate();
   props.pageStatus("Signin");
@@ -34,9 +35,9 @@ export default function Signin(props) {
       })
       .then((response) => {
         console.log(response.data);
-        if (response.data.statusMessage === "Signup successful") {
+        if (response.data.statusMessage === "Signin successful") {
           props.authStatus(response.data.userName)
-          navigate("/");
+          navigate('/');
         } else {
         //  alert('Invalid credentials or username not existed')
          serError('Invalid credentials or username not existed')

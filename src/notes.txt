@@ -1,0 +1,3 @@
+1. Refresh feature
+2. Unit testing 
+3. Retrieving user preferences with signin feature
