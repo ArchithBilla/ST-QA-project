@@ -17,7 +17,7 @@ export default function Home(props) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.post("http://localhost:8000/home", {
+        const res = await axios.post("http://localhost:8000/home/news", {
           userName: props.authUser,
         });
         setData(res.data);
@@ -67,16 +67,24 @@ export default function Home(props) {
 const setRefresh = ()=>{
 setRandom(Math.floor(Math.random() * 101))
 }
+// const dates = [
+//   new Date('2023-03-01'),
+//   new Date('2023-03-15'),
+//   new Date('2023-02-28'),
+//   new Date('2023-03-10'),
+// ];
+
+// dates.sort((a, b) => b.getTime() - a.getTime());
+console.log(data)
   return (
     <>
       <Container>
         <Row style={{ backgroundColor: "rgb(230, 238, 230)" }}>
-          <Col className="side_space" xs={2}>
-            <div style={{ position: "fixed" }}>
-              <Button variant="success" className="refresh" onClick={setRefresh}>
+          <Col xs={12}>
+          <Button variant="success" className="refresh" >
                 Refresh
               </Button>
-              {props.authUser !== "" ? (
+          {props.authUser === "" ? (
                 <Button
                   className="settings"
                   variant="secondary"
@@ -85,9 +93,6 @@ setRandom(Math.floor(Math.random() * 101))
                   Settings
                 </Button>
               ) : null}
-            </div>
-          </Col>
-          <Col xs={10}>
             <div className="main_container">
               <Modal
                 show={show}
@@ -135,16 +140,23 @@ setRandom(Math.floor(Math.random() * 101))
                 </Modal.Footer>
               </Modal>
               {Object.values(data).map((item, index) => {
-                if(index > random-5 && index < random+5){
                 return (
-                  <div className="news_details" onClick={() => setBool(!bool)}>
-                    <h5>{item.title}</h5>
-                    <div
+                  <Row className="news_details">
+                     <Col xs={3}>
+                  <img src = {item.urlToImage} height = {"175px"} width = {"250px"}/>
+                  </Col>
+                    <Col xs={9}>
+                  <div >
+                    <a  href = {item.url}><h4 style = {{color : 'blue'}}>{item.title}</h4></a>
+                    <h6
                       dangerouslySetInnerHTML={{ __html: item.description }}
                     />
+                    <p className = 'date'>{item.publishedAt.toString().split('T')[0]}</p>
                   </div>
+                  </Col>
+                  </Row>
                 );
-                }
+                
               })}
             </div>
           </Col>

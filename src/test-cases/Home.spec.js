@@ -55,3 +55,25 @@ describe('Rendering UI components', () => {
     })
   })
 
+
+  describe('Test driven development fo UI', () => {
+    it('should show 4 news feeds', () => {
+      const wrapper = shallow(<Home props = {props} />)
+      const newsDetails  = wrapper.find('.news_details');
+      expect(newsDetails).toHaveLength(4);
+    })
+
+    it('should show 8 tabs', () => {
+      const wrapper = shallow(<Home props = {props} />)
+      const newsDetails  = wrapper.find('.tabs');
+      expect(newsDetails).toHaveLength(8);
+    })
+
+    it('should show 2 links for next and prev for pagination', () => {
+      const wrapper = shallow(<Home props = {props} />)
+      const newsDetails  = wrapper.find('.paginationsLinks');
+      expect(newsDetails).toHaveLength(2);
+    })
+  })
+
+ 

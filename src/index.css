@@ -84,7 +84,6 @@ margin : 10px;
 .news_details{
   background-color: white;
   color: black;
-  cursor: pointer;
   padding: 18px;
   width: 100%;
   border: none;
@@ -92,25 +91,21 @@ margin : 10px;
   outline: none;
   font-size: 15px;
   margin : 10px;
-
 }
 
 .refresh{
    margin: 5px
 }
 .settings{
-margin-top: 50%;
-margin: 5px
+margin: 5px;
+position : absolute;
+right : 0;
+border : 5;
 }
 
 .side_space{
    background-color: white;
    margin-top: 11px;
 }
-.btn-success{
-   margin-top: 250px;
-}
-.btn-secondary{
-   margin-top: 250px;
-}
+
 
