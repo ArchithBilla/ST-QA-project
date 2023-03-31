@@ -7,14 +7,32 @@ import Container from "react-bootstrap/Form";
 import axios from 'axios'
 
 import { useState, useEffect } from "react";
-let selectedIndex = [0];
-
+let selectedIndex = []
+const categories = [
+  "General",
+  "Health",
+  "Science",
+  "Sports",
+  "Technology",
+  "Entertainment",
+  "Business",
+];
+let staticData = []
 export default function Home(props) {
   const [selectedIndexArray, setselectedIndexArray] = useState([]);
   const [data, setData] = useState("");
-  const [bool, setBool] = useState(false);
+  const [savedPrefernces, setsavedPrefernces] = useState('');
   const [random,setRandom] =  useState(10)
   useEffect(() => {
+    selectedIndex = []
+    categories.forEach((item,index)=>{
+console.log(props.userData)
+      if(props.userData[item] ){
+   selectedIndex.push(index)
+      }
+    })
+    staticData = selectedIndex
+    setselectedIndexArray(selectedIndex)
     async function fetchData() {
       try {
         const res = await axios.post("http://localhost:8000/home/news", {
@@ -28,7 +46,9 @@ export default function Home(props) {
     fetchData();
   }, []);
   const selectCategory = (data, index) => {
+    console.log(selectedIndex)
     if (selectedIndex.indexOf(index) === -1) {
+      // empty check
       selectedIndex.push(index);
       setselectedIndexArray(selectedIndex);
     } else {
@@ -38,34 +58,52 @@ export default function Home(props) {
     }
   };
   const saveChanges = () => {
-    axios
-    .post("http://localhost:8000/settings", {
-      selectedIndexArray:selectedIndexArray,
-      userName : props.authUser
-    })
-    .then((response) => {
-      console.log(response.data);
-    });
-    setShow(false);
+    console.log(selectedIndexArray)
+    if(selectedIndexArray.length !== 0){
+      axios
+      .post("http://localhost:8000/settings", {
+        selectedIndexArray:selectedIndexArray,
+        userName : props.authUser
+      })
+      .then((response) => {
+        // console.log(response.data,'---',selectedIndexArray,'---',selectedIndex)
+        setsavedPrefernces(response.data)
+      });
+      setShow(false);
+    }
+    else {
+      alert('Must select atleast one preference')
+      setShow(false);
+      let change = []
+      console.log(savedPrefernces)
+      Object.values(savedPrefernces).forEach((item,index)=>{
+        if(item === 1)
+        change.push(index)
+       })
+       console.log(change)
+       setselectedIndexArray(change)
+    }
+  
+//when everything was deselected at start and save there is bug
   };
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const categories = [
-    "General",
-    "Health",
-    "Science",
-    "Sports",
-    "Technology",
-    "Entertainment",
-    "Business",
-  ];
+  
   if (typeof props.pageStatus === "function") props?.pageStatus("Home");
   const testOnChange = () => {
     console.log(props.authUser);
   };
-const setRefresh = ()=>{
-setRandom(Math.floor(Math.random() * 101))
+const setRefresh  = async()=>{
+  try {
+    const res = await axios.post("http://localhost:8000/home/news", {
+      userName: props.authUser,
+    });
+    setData(res.data);
+  } catch (err) {
+    console.log(err);
+  }
+// setRandom(Math.floor(Math.random() * 101))
 }
 // const dates = [
 //   new Date('2023-03-01'),
@@ -75,16 +113,43 @@ setRandom(Math.floor(Math.random() * 101))
 // ];
 
 // dates.sort((a, b) => b.getTime() - a.getTime());
-console.log(data)
+const resetChanges = ()=>{
+  let change = []
+  setShow(false);
+  if(savedPrefernces === ''){
+  console.log(props.userData)
+  categories.forEach((item,index)=>{
+          if(props.userData[item] ){
+            change.push(index)
+          }
+        })
+        setselectedIndexArray(change)
+
+      }
+  else
+  {
+     Object.values(savedPrefernces).forEach((item,index)=>{
+      if(item === 1)
+      change.push(index)
+     })
+     console.log(change)
+     setselectedIndexArray(change)
+  }
+}
+const checkDisable = ()=>{
+  if(selectedIndexArray.length === 1 ){
+
+  }
+}
   return (
     <>
       <Container>
         <Row style={{ backgroundColor: "rgb(230, 238, 230)" }}>
           <Col xs={12}>
-          <Button variant="success" className="refresh" >
+          <Button variant="success" className="refresh" onClick = {setRefresh}>
                 Refresh
               </Button>
-          {props.authUser === "" ? (
+          {props.authUser !== "" ? (
                 <Button
                   className="settings"
                   variant="secondary"
@@ -121,10 +186,11 @@ console.log(data)
                                 type="switch"
                                 id="custom-switch"
                                 defaultChecked={
-                                  selectedIndex.includes(index) ? true : false
+                                  selectedIndexArray.includes(categories.indexOf(item)) ? true : false
                                 }
                                 label={item}
-                                onChange={() => selectCategory(item, index)}
+                                onChange={(e) => {
+                                  selectCategory(item, index)}}
                               />
                             </span>
                           </Form>
@@ -134,6 +200,7 @@ console.log(data)
                   </Row>
                 </Modal.Body>
                 <Modal.Footer>
+                <Button variant="danger" className={"modal_cancel"} onClick={resetChanges}>Cancel</Button>
                   <Button className={"modal-save"} onClick={saveChanges}>
                     Save
                   </Button>

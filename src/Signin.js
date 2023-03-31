@@ -35,6 +35,7 @@ export default function Signin(props) {
       })
       .then((response) => {
         console.log(response.data);
+        props.setUserData(response.data)
         if (response.data.statusMessage === "Signin successful") {
           props.authStatus(response.data.userName)
           navigate('/');
