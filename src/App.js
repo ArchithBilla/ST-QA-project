@@ -10,6 +10,7 @@ export default function App() {
   const [page, setPage] = useState('')
   const [authUser,setauthUser] = useState('')
   const [userData, setUserData] = useState('')
+  const [aipData, setApiData] = useState([])
 
 const pageStatus = (data)=>{
   setPage(data)
@@ -19,11 +20,12 @@ const authStatus = (data)=>{
 }
 
 
+
  return (
    <>
-  <Navigation page = {page} authUser = {authUser} authStatus = {authStatus}/>
+  <Navigation page = {page} authUser = {authUser} authStatus = {authStatus} aipData = {aipData}/>
   <Routes>
-  <Route path={'/'} element={<Home pageStatus = {pageStatus} authUser = {authUser} userData = {userData}/>}></Route>
+  <Route path={'/'} element={<Home pageStatus = {pageStatus} authUser = {authUser} userData = {userData} setApiData = {setApiData}/>}></Route>
   <Route path="signin" element={<Signin pageStatus = {pageStatus} authStatus = {authStatus} setUserData = {setUserData} />} />
   <Route path="signin/signup" element={<Signup pageStatus = {pageStatus} authStatus = {authStatus}/> } />
   </Routes>

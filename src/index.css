@@ -5,10 +5,12 @@
  }
  .userName{
    color : white;
-   position : fixed;
+   text-decoration: none;
+   /* position : fixed;
    right : 0;
    border : 5;
-   margin-top: 40px;
+   margin-top: 40px; */
+   margin : -3px
  }
  #logo_link{
     text-decoration: none;
@@ -114,4 +116,8 @@ border : 5;
    margin-top: 11px;
 }
 
+.pagination{
+   margin-left : 45%;
+   margin-top: 1%;
+}
 
