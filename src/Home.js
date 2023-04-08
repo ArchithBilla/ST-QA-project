@@ -8,7 +8,7 @@ import axios from "axios";
 import Home_news from "./home_news";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import Pagination from 'react-bootstrap/Pagination';
+import Pagination from "react-bootstrap/Pagination";
 
 import { useState, useEffect } from "react";
 let selectedIndex = [];
@@ -23,18 +23,21 @@ const categories = [
 ];
 export default function Home(props) {
   const [selectedIndexArray, setselectedIndexArray] = useState([]);
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
   const [preferredData, setPreferredData] = useState([]);
-  const [savedPrefernces, setsavedPrefernces] = useState("");
-  const [pageActive,setPageActive] = useState(1)
+  const [pageActive, setPageActive] = useState(1);
+  const [saveDisable, setSaveDisable] = useState(false);
   useEffect(() => {
+    let selectedPath = "";
     selectedIndex = [];
     categories.forEach((item, index) => {
       if (props.userData[item]) {
         selectedIndex.push(index);
       }
     });
+    console.log("i M H");
     setselectedIndexArray(selectedIndex);
+
     async function fetchData() {
       if (props.authUser === "") {
         try {
@@ -45,36 +48,41 @@ export default function Home(props) {
         } catch (err) {
           console.log(err);
         }
-
       } else {
         let temp = {};
-        selectedIndex.forEach(async (item) => {
-          console.log(item)
+        selectedIndex.forEach(async (item, index) => {
+          selectedPath = selectedPath + categories[item].toLowerCase() + "&";
           await axios
             .post("http://localhost:8000/home/news/categories", {
               userName: props.authUser,
               category: categories[item].toLowerCase(),
             })
             .then((res) => {
-              // temp.push(res.data)
               categories.forEach((item) => {
                 if (item.toLowerCase() === Object.keys(res.data)[0]) {
                   temp[item] = res.data[item.toLowerCase()];
                 }
               });
               props.setApiData(temp);
-              setTimeout(()=>{
-                setPreferredData(temp);
-              setData(temp[Object.keys(temp)[0]])
-
-              }, 1000)
             });
+          if (index + 1 === selectedIndex.length) {
+            await axios
+              .post("http://localhost:8000/home/news/all", {
+                selectedPath: selectedPath,
+              })
+              .then((res) => {
+                temp["Home"] = res.data;
+                setTimeout(() => {
+                  setPreferredData(temp);
+                  setData(temp["Home"]);
+                }, 1000);
+              });
+          }
         });
       }
     }
-
     fetchData();
-  },[]);
+  }, []);
   const selectCategory = (data, index) => {
     if (selectedIndex.indexOf(index) === -1) {
       // empty check
@@ -85,62 +93,59 @@ export default function Home(props) {
       selectedIndex.splice(newIndex, 1);
       setselectedIndexArray(selectedIndex);
     }
+    if (selectedIndex.length === 0) setSaveDisable(true);
+    else setSaveDisable(false);
   };
   const saveChanges = () => {
     let temp = {};
-
     if (selectedIndexArray.length !== 0) {
-      const x = async ()=>{
-       await  axios
-        .post("http://localhost:8000/settings", {
-          selectedIndexArray: selectedIndexArray,
-          userName: props.authUser,
-        })
-        .then((response) => {
-          setsavedPrefernces();
-          Object.keys(response.data).forEach(async (item) => {
-            console.log(response.data)
-            if (response.data[item] === 1) {
-              await axios
-                .post("http://localhost:8000/home/news/categories", {
-                  userName: props.authUser,
-                  category: item,
-                })
-                .then((res) => {
-                  categories.forEach((item, index) => {
-                    console.log(item.toLowerCase(),'--',Object.keys(res.data)[0]);
-                    if (item.toLowerCase() === Object.keys(res.data)[0]) {
-                      temp[item] = res.data[item.toLowerCase()];
-                    }
+      let selectedPath = "";
+      const x = async () => {
+        await axios
+          .post("http://localhost:8000/settings", {
+            selectedIndexArray: selectedIndexArray,
+            userName: props.authUser,
+          })
+          .then((response) => {
+            let newPrefernces = [];
+            Object.keys(response.data).forEach(async (item, index) => {
+              if (response.data[item] === 1) {
+                newPrefernces.push(index);
+                selectedPath = selectedPath + item.toLowerCase() + "&";
+                await axios
+                  .post("http://localhost:8000/home/news/categories", {
+                    userName: props.authUser,
+                    category: item,
+                  })
+                  .then((res) => {
+                    categories.forEach((item, index) => {
+                      if (item.toLowerCase() === Object.keys(res.data)[0]) {
+                        temp[item] = res.data[item.toLowerCase()];
+                      }
+                    });
                   });
-                  console.log(temp);
-                  props.setApiData(temp);
-                });
-            }
+                await axios
+                  .post("http://localhost:8000/home/news/all", {
+                    selectedPath: selectedPath,
+                  })
+                  .then((res) => {
+                    temp["Home"] = res.data;
+                  });
+              }
+            });
+            setselectedIndexArray(newPrefernces);
           });
-        });
-      }
-      x()
-      
-setTimeout(()=>{
-  setShow(false);
-}, 1000)
-      setPreferredData(temp);
-    } else {
-      alert("Must select atleast one preference");
-      setShow(false);
-      let change = [];
-      Object.values(savedPrefernces).forEach((item, index) => {
-        if (item === 1) change.push(index);
-      });
-      setselectedIndexArray(change);
-    }
+      };
+      x();
 
-    //when everything was deselected at start and save there is bug
+      setTimeout(() => {
+        setShow(false);
+      }, 1000);
+      setPreferredData(temp);
+    }
   };
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   if (typeof props.pageStatus === "function") props?.pageStatus("Home");
   const testOnChange = () => {};
@@ -155,71 +160,57 @@ setTimeout(()=>{
     }
     // setRandom(Math.floor(Math.random() * 101))
   };
- 
-  const setKey = (e)=>{
-    setData(preferredData[e])
-    
-  }
-  const resetChanges = () => {
-    let change = [];
-    setShow(false);
-    if (savedPrefernces === "") {
-      categories.forEach((item, index) => {
-        if (props.userData[item]) {
-          change.push(index);
-        }
-      });
-      setselectedIndexArray(change);
-    } else {
-      Object.values(savedPrefernces).forEach((item, index) => {
-        if (item === 1) change.push(index);
-      });
-      setselectedIndexArray(change);
-    }
+
+  const setKey = (e) => {
+    setData(preferredData[e]);
   };
-  const checkDisable = () => {
-    if (selectedIndexArray.length === 1) {
-    }
+  const setSettings = () => {
+    let temp = [];
+    Object.keys(preferredData).forEach((item) => {
+      if (categories.includes(item)) {
+        temp.push(categories.indexOf(item));
+      }
+    });
+    setselectedIndexArray(temp);
+    setShow(true);
+    setSaveDisable(false);
   };
   return (
     <>
       <Container>
         <Row style={{ backgroundColor: "rgb(230, 238, 230)" }}>
-          <Col xs = {2}>
-          <Button variant="success" className="refresh" onClick={setRefresh}>
+          <Col xs={2}>
+            <Button variant="success" className="refresh" onClick={setRefresh}>
               Refresh
             </Button>
           </Col>
-          <Col xs = {8}>
-          {props.authUser !== "" ? (
-          <Tabs
+          <Col xs={8}>
+            {props.authUser !== "" ? (
+              <Tabs
                 onSelect={(k) => setKey(k)}
                 className="mb-3"
+                defaultActiveKey="Home"
               >
-                {Object.keys(preferredData).map((item,index)=>{
-                  if(item){
-                  return (
-                  <Tab eventKey={item} title={item}>
-                  </Tab>
-                  )
+                <Tab eventKey={"Home"} title={"Home"} onSelect = {()=>setPageActive(1)}></Tab>
+                {Object.keys(preferredData).map((item, index) => {
+                  if (item !== "Home") {
+                    return <Tab eventKey={item} title={item} onSelect = {()=>setPageActive(1)}></Tab>;
                   }
                 })}
-                
-              </Tabs>) : null}
-             
-              
-            </Col>
-            <Col xs = {2}>
+              </Tabs>
+            ) : null}
+          </Col>
+          <Col xs={2}>
             {props.authUser !== "" ? (
               <Button
                 className="settings"
                 variant="secondary"
-                onClick={handleShow}
+                onClick={setSettings}
               >
                 Settings
               </Button>
             ) : null}
-            </Col>
+          </Col>
         </Row>
         <Row style={{ backgroundColor: "rgb(230, 238, 230)" }}>
           <Col xs={12}>
@@ -270,41 +261,46 @@ setTimeout(()=>{
                   </Row>
                 </Modal.Body>
                 <Modal.Footer>
+                  {saveDisable ? (
+                    <p>You must select atleast one preference</p>
+                  ) : null}
                   <Button
-                    variant="danger"
-                    className={"modal_cancel"}
-                    onClick={resetChanges}
+                    className={"modal-save"}
+                    onClick={saveChanges}
+                    disabled={saveDisable}
                   >
-                    Cancel
-                  </Button>
-                  <Button className={"modal-save"} onClick={saveChanges}>
                     Save
                   </Button>
                 </Modal.Footer>
               </Modal>
-           
-              {Object.values(data).map((item, index) => {
-                return <Home_news data={item}  index = {index} pageActive = {pageActive} />;
+              {data?.map((item, index) => {
+                return (
+                  <Home_news
+                    data={item}
+                    index={index}
+                    pageActive={pageActive}
+                  />
+                );
               })}
             </div>
-            
-          
           </Col>
         </Row>
       </Container>
-      <Pagination className="pagination">   
-        {[1,2,3,4,5].map((item)=>{
+      <Pagination className="pagination">
+        {[1, 2, 3, 4, 5].map((item) => {
           return (
-          <Pagination.Item key={item} active = {pageActive === item ? true : false} onClick = {(e)=>{
-            setPageActive(item)
-            console.log(data.slice(4*(item-1),4*item))
-          }}>
-            {item}
-        </Pagination.Item>
-          )
-        })}  
-        </Pagination>
- 
+            <Pagination.Item
+              key={item}
+              active={pageActive === item ? true : false}
+              onClick={(e) => {
+                setPageActive(item);
+              }}
+            >
+              {item}
+            </Pagination.Item>
+          );
+        })}
+      </Pagination>
     </>
   );
 }
