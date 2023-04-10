@@ -1,0 +1,87 @@
+﻿
+# <a name="_nclmwinpy69j"></a>                             TEST REPORT
+### <a name="_zge7upd3ub11"></a>27th march  to 10th April
+### <a name="_mji3n6kpshx"></a>Iteration : 1
+
+|<h4><a name="_t81wsyoqrqvk"></a>    **Test case ID**</h4>|<p><h4><a name="_e9wzo6d0n48x"></a>**Name of the person  who run test**</h4></p><p><h4></h4></p>|<h4><a name="_2887gb7bmrw1"></a><a name="_iaupmfbbvnsf"></a>     **pass/fail**</h4>|<h4><a name="_wikqeglfgooa"></a>    **comments**</h4>|
+| :-: | :-: | :-: | :-: |
+|<h5><a name="_z04ogtl6m1c5"></a>UI001</h5>|`    `vivekananda|`    `Pass |the custom  home page is displayed correctly and loads without any errors|
+|<h5><a name="_ynjnkdqc7iaw"></a>**UI002**</h5>|`    `vivekananda|`  `pas|The custom home page displays the correct content.|
+|<h5><a name="_52jncg3eiwjg"></a>**UI003**</h5>|`    `vivekananda|`   `pass|that all links on the custom home page are functional.|
+|<h5><a name="_e0hccp46c062"></a>**UI004**</h5>|`    `vivekananda|`   `fail|the pagination controls are visible and functional|
+|<h5><a name="_wvu58mghq3i5"></a>**UI005**</h5>|`    `vivekananda|`   `pass|that the pagination controls update the displayed content correctly.|
+|<h5><a name="_2png2g4h3zlp"></a>**UI006**</h5>|`   `Vivekananda |`   `pass|The pagination controls display the correct number of pages.|
+|<h5><a name="_xbvcybr43nou"></a>**UI007**</h5>|`   `vivekananda|fail|that the number of items per page is configurable.|
+|<h5><a name="_sb3kky7c87d"></a>**FT001**</h5>|` `jay|`  `fail|that clicking on a pagination control updates the displayed content to the correct page.|
+|<h5><a name="_mf58eaoy193x"></a>**FT002**</h5>|`  `jay|`  `fail|the correct number of items are displayed per page. |
+|<h5><a name="_nzv5f24cnpo8"></a>**FT003**</h5>|` `jay|`   `pass|The pagination controls are disabled when there is more content to display.|
+|<h5><a name="_eh4g23o2n69a"></a>**FT004**</h5>|jay|`  `pass|the  pagination controls are enabled when there is more content to display|
+|<h5><a name="_8o00a3rpkzqb"></a>**FT005**</h5>|jay|`  `pass|` `The custom home page and pagination work correctly with different types like images,text.|
+|<h5><a name="_ojormhef95ev"></a>**FT006**</h5>|jay|fail|the home shows articles from user preferences |
+|<h5><a name="_bxf5sinvgp4c"></a>**FT007**</h5>|` `jay|pass|the custom home page and pagination work correctly with different types of users(login,logout) |
+|<h5><a name="_jv6606x07yws"></a>**FT008**</h5>|` `jay|pass|the add menu to filter articles.|
+|<h5><a name="_jebfcpw7g94s"></a>**FT009**</h5>|` `jay|pass|that the custom home page and pagination are well-designed or not|
+|<h5><a name="_3chfcbprhkvy"></a>**FT010**</h5>|jay|pass|The pagination buttons are displayed correctly and are clickable. |
+|<h5><a name="_udd3ajwv6xbw"></a>**FT011**</h5>|jay|fail|that the pagination buttons lead to the correct page numbers.|
+|<h5><a name="_xk4b4nwjor44"></a>**FT012**</h5>|jay|pass|that the user name is displayed or not|
+|<h5><a name="_i1j7rd4p4uez"></a>**FT013**</h5>|jay|pass|all components on the custom  home page are clickable and lead to correct destination|
+|<h5><a name="_bb6a1umdfv4z"></a>**FT014**</h5>|jay|pass|<p>if the refresh button is clickable or not*.*</p><p></p>|
+|<h5><a name="_dqklqbw63lav"></a>**FT015**</h5>|jay|pass|the refresh button is refreshing or not.|
+|<h5><a name="_vt7rhtb32ltr"></a>**FT016**</h5>|jay|pass|that tabs are clickable or not|
+|<h5></h5>|<h6><a name="_dper14htsilc"></a><a name="_o2lhmvvfapgy"></a>*API*</h6>|||
+|<h5><a name="_za56dog7o4ah"></a>**API001**</h5>|vamsi|pass|success|
+|<h5><a name="_m7ak6ytllrjo"></a>**API002**</h5>|vamsi|pass|success|
+|<h5><a name="_neokeldaswf"></a>**API003**</h5>|vamsi|pass|success|
+|<h5><a name="_3yp89y1u6i03"></a>**API004**</h5>|vamsi|pass|success|
+|<h5><a name="_palp2vw0gc19"></a>**API005**</h5>|vamsi|pass|success|
+|<h5><a name="_i9smyrcd4o7i"></a>**API006**</h5>|vamsi|pass|success|
+|<h5><a name="_vdcetcqmauzu"></a>**API007**</h5>|vamsi|pass|success|
+|<h5><a name="_t0ssnvpwtkd1"></a>**API008**</h5>|vamsi|pass|success|
+|<h5><a name="_ny0kdqphnhfg"></a>**API009**</h5>|vamsi|pass|success|
+|<h5><a name="_d30t5re4wco7"></a>**API010**</h5>|vamsi|pass|success|
+|<h5></h5>|<h6><a name="_zhpbjpmtbk4z"></a><a name="_kvvv07alxfzn"></a>*data-base*</h6>|||
+|<h5><a name="_tdiz2wtfm3h0"></a>**DA001**</h5>|vivekananda|pass|available in database|
+|<h5><a name="_hkkovd2awzrf"></a>**DA002**</h5>|vivekananda|pass|<p>` `the data is saving or not</p><p></p>|
+### <a name="_1xbhucxtdfvk"></a>Iteration : 2
+
+
+|<h4><a name="_1zmspc60dcp4"></a>    **Test case ID**</h4>|<p><h4><a name="_sv0b4aegu1pm"></a>**Name of the person  who run test**</h4></p><p><h4></h4></p>|<h4><a name="_fmctpznineh4"></a><a name="_yl3z4wrm58a"></a>     **pass/fail**</h4>|<h4><a name="_43wrwouwuj6e"></a>    **comments**</h4>|
+| :-: | :-: | :-: | :-: |
+|<h5><a name="_wtvixcgatptq"></a>UI001</h5>|`    `vivekananda|`    `Pass |the custom  home page is displayed correctly and loads without any errors|
+|<h5><a name="_xk7v87xrhwwe"></a>**UI002**</h5>|`    `vivekananda|`  `pas|The custom home page displays the correct content.|
+|<h5><a name="_vd5vfjmth4b0"></a>**UI003**</h5>|`    `vivekananda|`   `pass|that all links on the custom home page are functional.|
+|<h5><a name="_2wzb3gkyjxjz"></a>**UI004**</h5>|`    `vivekananda|`   `pass|the pagination controls are visible and functional|
+|<h5><a name="_cs4wv5dpadqo"></a>**UI005**</h5>|`    `vivekananda|`   `pass|that the pagination controls update the displayed content correctly.|
+|<h5><a name="_d8qp5qpqjr5"></a>**UI006**</h5>|`   `Vivekananda |`   `pass|The pagination controls display the correct number of pages.|
+|<h5><a name="_ldapa75aiz9c"></a>**UI007**</h5>|`   `vivekananda|pass|that the number of items per page is configurable.|
+|<h5><a name="_dp4hghd1f25c"></a>**FT001**</h5>|` `jay|`  `pass|that clicking on a pagination control updates the displayed content to the correct page.|
+|<h5><a name="_xj7re9eq6xrz"></a>**FT002**</h5>|`  `jay|`   `pass|the correct number of items are displayed per page. |
+|<h5><a name="_wfgogdod5zth"></a>**FT003**</h5>|` `jay|`   `pass|the pagination controls are disabled when there is more content to display.|
+|<h5><a name="_5v5a6rrwu9l"></a>**FT004**</h5>|jay|`  `pass|the  pagination controls are enabled when there is more content to display|
+|<h5><a name="_2x3dz9guo05s"></a>**FT005**</h5>|jay|`  `pass|` `the custom home page and pagination work correctly with different types like images,text.|
+|<h5><a name="_tsemmdajchnh"></a>**FT006**</h5>|jay|` `pass|the home shows articles from user preferences |
+|<h5><a name="_zdiorggu7dkl"></a>**FT007**</h5>|` `jay|pass|the custom home page and pagination work correctly with different types of users(login,logout) |
+|<h5><a name="_1gncc2pmksv"></a>**FT008**</h5>|` `jay|pass|the add menu to filter articles.|
+|<h5><a name="_kyi1479gd4rz"></a>**FT009**</h5>|` `jay|pass|that the custom home page and pagination are well-designed or not|
+|<h5><a name="_j4by79o7np3u"></a>**FT010**</h5>|jay|pass|The pagination buttons are displayed correctly and are clickable. |
+|<h5><a name="_x4xbw6xjlfd4"></a>**FT011**</h5>|jay|pass|that the pagination buttons lead to the correct page numbers.|
+|<h5><a name="_j46ofd5wa4mj"></a>**FT012**</h5>|jay|pass|that the user name is displayed or not|
+|<h5><a name="_qeijduf4jrk0"></a>**FT013**</h5>|jay|pass|all components on the custom  home page are clickable and lead to correct destination|
+|<h5><a name="_em3k054olyfw"></a>**FT014**</h5>|jay|pass|<p>if the refresh button is clickable or not*.*</p><p></p>|
+|<h5><a name="_1qbfgby82ijm"></a>**FT015**</h5>|jay|pass|the refresh button is refreshing or not.|
+|<h5><a name="_shxmkoriy9tw"></a>**FT016**</h5>|jay|pass|that tabs are clickable or not|
+|<h5></h5>|<h6><a name="_bvwdsxiuesh9"></a><a name="_dkxdonm4gi00"></a>*API*</h6>|||
+|<h5><a name="_4o4e30eyic8k"></a>**API001**</h5>|vamsi|pass|success|
+|<h5><a name="_i9bpfazfe4z2"></a>**API002**</h5>|vamsi|pass|success|
+|<h5><a name="_d1yv8dr47qvv"></a>**API003**</h5>|vamsi|pass|success|
+|<h5><a name="_zd5fjcycczr0"></a>**API004**</h5>|vamsi|pass|success|
+|<h5><a name="_ixo9by3hbye"></a>**API005**</h5>|vamsi|pass|success|
+|<h5><a name="_rq982j4r86t"></a>**API006**</h5>|vamsi|pass|success|
+|<h5><a name="_w7mpchooizq7"></a>**API007**</h5>|vamsi|pass|success|
+|<h5><a name="_oe9164grliy3"></a>**API008**</h5>|vamsi|pass|success|
+|<h5><a name="_patxvf4m173v"></a>**API009**</h5>|vamsi|pass|success|
+|<h5><a name="_mvqy6dp31fsc"></a>**API010**</h5>|vamsi|pass|success|
+|<h5></h5>|<h6><a name="_b6m6ozook635"></a><a name="_2xzev3tn4aq9"></a>*data-base*</h6>|||
+|<h5><a name="_wwk7fior6dyx"></a>           **DA001**</h5>|vivekananda|pass|available in database|
+|<h5><a name="_4fm662xyhnth"></a>**DA002**</h5>|vivekananda|pass|<p>` `the data is saving or not</p><p></p>|
+###
