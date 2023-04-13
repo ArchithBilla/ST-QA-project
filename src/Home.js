@@ -10,6 +10,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import Pagination from "react-bootstrap/Pagination";
 
+
 import { useState, useEffect } from "react";
 let selectedIndex = [];
 const categories = [
@@ -22,20 +23,20 @@ const categories = [
   "Bussiness",
 ];
 export default function Home(props) {
+  let pageNumber = 0
   const [selectedIndexArray, setselectedIndexArray] = useState([]);
   const [data, setData] = useState([]);
   const [preferredData, setPreferredData] = useState([]);
   const [pageActive, setPageActive] = useState(1);
   const [saveDisable, setSaveDisable] = useState(false);
+  const [allData, setAllData] = useState([])
   useEffect(() => {
-    let selectedPath = "";
     selectedIndex = [];
     categories.forEach((item, index) => {
       if (props.userData[item]) {
         selectedIndex.push(index);
       }
     });
-    console.log("i M H");
     setselectedIndexArray(selectedIndex);
 
     async function fetchData() {
@@ -50,34 +51,36 @@ export default function Home(props) {
         }
       } else {
         let temp = {};
+        let tempArray = []
         selectedIndex.forEach(async (item, index) => {
-          selectedPath = selectedPath + categories[item].toLowerCase() + "&";
           await axios
-            .post("http://localhost:8000/home/news/categories", {
-              userName: props.authUser,
-              category: categories[item].toLowerCase(),
-            })
-            .then((res) => {
-              categories.forEach((item) => {
-                if (item.toLowerCase() === Object.keys(res.data)[0]) {
-                  temp[item] = res.data[item.toLowerCase()];
-                }
-              });
-              props.setApiData(temp);
+          .post("http://localhost:8000/home/news/categories", {
+            userName: props.authUser,
+            category: categories[item].toLowerCase(),
+          })
+          .then((res) => {
+            categories.forEach((item) => {
+              if (item.toLowerCase() === Object.keys(res.data)[0]) {
+                temp[item] = res.data[item.toLowerCase()];
+              }
             });
-          if (index + 1 === selectedIndex.length) {
+            props.setApiData(temp);
+          });
             await axios
-              .post("http://localhost:8000/home/news/all", {
-                selectedPath: selectedPath,
+              .post("http://localhost:8000/home/news/prefernces", {
+                selection : categories[item].toLowerCase()
               })
               .then((res) => {
-                temp["Home"] = res.data;
-                setTimeout(() => {
-                  setPreferredData(temp);
-                  setData(temp["Home"]);
-                }, 1000);
+                tempArray =  tempArray.concat(res.data)
+                setAllData(tempArray)
+                setData(tempArray)
+                                // temp["Home"] = res.data;
+                // setTimeout(() => {
+                //   setPreferredData(temp);
+                //   setData(temp["Home"]);
+                // }, 1000);
               });
-          }
+          
         });
       }
     }
@@ -97,6 +100,7 @@ export default function Home(props) {
     else setSaveDisable(false);
   };
   const saveChanges = () => {
+    let tempArray = []
     let temp = {};
     if (selectedIndexArray.length !== 0) {
       let selectedPath = "";
@@ -109,9 +113,10 @@ export default function Home(props) {
           .then((response) => {
             let newPrefernces = [];
             Object.keys(response.data).forEach(async (item, index) => {
+              console.log(item)
+
               if (response.data[item] === 1) {
                 newPrefernces.push(index);
-                selectedPath = selectedPath + item.toLowerCase() + "&";
                 await axios
                   .post("http://localhost:8000/home/news/categories", {
                     userName: props.authUser,
@@ -124,15 +129,22 @@ export default function Home(props) {
                       }
                     });
                   });
-                await axios
-                  .post("http://localhost:8000/home/news/all", {
-                    selectedPath: selectedPath,
-                  })
-                  .then((res) => {
-                    temp["Home"] = res.data;
-                  });
+              //     await axios
+              // .post("http://localhost:8000/home/news/prefernces", {
+              //   selection : categories[item].toLowerCase()
+              // })
+              // .then((res) => {
+              //   console.log(res.data)
+              //   tempArray =  tempArray.concat(res.data)
+              //   console.log(tempArray)
+              //   // setAllData(tempArray)
+              //   // setData(tempArray)
+                                
+              // });
+              
               }
             });
+            console.log(newPrefernces)
             setselectedIndexArray(newPrefernces);
           });
       };
@@ -161,30 +173,41 @@ export default function Home(props) {
     // setRandom(Math.floor(Math.random() * 101))
   };
 
-  const setKey = (e) => {
+  const setKey = async (e) => {
+    if(e !== 'Home')
+    {
     setData(preferredData[e]);
+    const res = await axios.post(`http://localhost:8000/home/news/category/${e.toLowerCase()}`)
+    setData(res.data);
+    }
+    else {
+      setData(allData) 
+    }
   };
   const setSettings = () => {
     let temp = [];
-    Object.keys(preferredData).forEach((item) => {
-      if (categories.includes(item)) {
-        temp.push(categories.indexOf(item));
-      }
-    });
-    setselectedIndexArray(temp);
+    // console.log(preferredData)
+    // Object.keys(preferredData).forEach((item) => {
+    //   if (categories.includes(item)) {
+    //     temp.push(categories.indexOf(item));
+    //   }
+    // });
+    // setselectedIndexArray(temp);
     setShow(true);
     setSaveDisable(false);
   };
+
   return (
     <>
       <Container>
         <Row style={{ backgroundColor: "rgb(230, 238, 230)" }}>
-          <Col xs={2}>
+          <Col xs={1}>
             <Button variant="success" className="refresh" onClick={setRefresh}>
               Refresh
             </Button>
           </Col>
-          <Col xs={8}>
+          <Col xs={9}>
+            <Row>
             {props.authUser !== "" ? (
               <Tabs
                 onSelect={(k) => setKey(k)}
@@ -192,14 +215,16 @@ export default function Home(props) {
                 defaultActiveKey="Home"
               >
                 <Tab eventKey={"Home"} title={"Home"} onSelect = {()=>setPageActive(1)}></Tab>
-                {Object.keys(preferredData).map((item, index) => {
-                  if (item !== "Home") {
+                {categories.map((item, index) => {
                     return <Tab eventKey={item} title={item} onSelect = {()=>setPageActive(1)}></Tab>;
-                  }
+                  
                 })}
               </Tabs>
             ) : null}
+            </Row>
+            
           </Col>
+         
           <Col xs={2}>
             {props.authUser !== "" ? (
               <Button
@@ -211,7 +236,28 @@ export default function Home(props) {
               </Button>
             ) : null}
           </Col>
+          
         </Row>
+        {props.authUser !== "" ? (     <Row style={{ backgroundColor: "rgb(230, 238, 230)",     paddingBottom: '10px'}} className = 'search-area'>
+          <Col xs={1}>
+          </Col>
+          <Col xs={10}>
+           <Form className="d-flex">
+            <Form.Control
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <Button style={{ marginLeft:  '10px'}}className="search-button" variant="primary">
+              Search
+            </Button>
+          </Form>
+          </Col>
+          <Col xs={1}>
+          </Col>
+          </Row>) : null}
+   
+      
         <Row style={{ backgroundColor: "rgb(230, 238, 230)" }}>
           <Col xs={12}>
             <div className="main_container">
@@ -241,6 +287,7 @@ export default function Home(props) {
                               <Form.Check
                                 type="switch"
                                 id="custom-switch"
+                                
                                 defaultChecked={
                                   selectedIndexArray.includes(
                                     categories.indexOf(item)
@@ -285,22 +332,33 @@ export default function Home(props) {
             </div>
           </Col>
         </Row>
+        
       </Container>
+      <Row>
+        <Col xs = {2}>
+        </Col>
+        <Col xs = {8}>
+       
       <Pagination className="pagination">
-        {[1, 2, 3, 4, 5].map((item) => {
+        {data?.map((item, index) => {
+         if( !(index/5).toString().includes('.'))
           return (
             <Pagination.Item
-              key={item}
-              active={pageActive === item ? true : false}
+              active={pageActive === (index/5 + 1) ? true : false}
               onClick={(e) => {
-                setPageActive(item);
+                setPageActive(index/5 + 1);
               }}
             >
-              {item}
+              {index/5 + 1}
             </Pagination.Item>
           );
         })}
       </Pagination>
+      </Col>
+      <Col xs = {2}>
+        </Col>
+      </Row>
+
     </>
   );
 }

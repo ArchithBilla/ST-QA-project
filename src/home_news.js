@@ -5,9 +5,8 @@ import Row from "react-bootstrap/Row";
 
 export default function Home_news(props) {
     
-if(4 *(props.pageActive -1) <= props.index && props.index < 4 *(props.pageActive)   )
+if(5 *(props.pageActive -1) <= props.index&& props.index < 5 *(props.pageActive))
   return (
-    
     <div>
          <Row className="news_details">
                     <Col xs={3}>
