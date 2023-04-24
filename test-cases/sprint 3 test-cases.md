@@ -1,4 +1,4 @@
-# Iteration -1 
+# Sprint 3 test cases
 
 - IT - Integration Testing - This testing is done in cases where frontend and backend are connected.
 - FT - Functionality Testing - This is the testing of UI functionality.
