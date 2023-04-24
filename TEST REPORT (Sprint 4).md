@@ -29,15 +29,6 @@ Iteration : 1
 |<h4>19</h4>|<h4><a name="_6v877i4s62j8"></a>Jay</h4>|<h4>Pass</h4>|Article is loading quickly and correctly|
 |<h4>20</h4>|<h4><a name="_qpm34fciqtqt"></a>Jay</h4>|<h4>Fail</h4>|<h4>Some categories labels are not clear</h4>|
 |<h4>21</h4>|<h4><a name="_nk42pbkbc6h7"></a>Jay</h4>|<h4>Fail</h4>|<h4>Articles are not in descending order</h4>|
-|<h4>API TESTING</h4>|
-|<h4>01</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>02</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>03</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>04</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>05</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>06</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>07</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>08</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
 
 
 
@@ -70,15 +61,7 @@ Iteration : 1
 |<h4>19</h4>|<h4><a name="_obtpqkv94vkb"></a>Jay</h4>|<h4>Pass</h4>|Article is loading quickly and correctly|
 |<h4>20</h4>|<h4><a name="_jh2wr1vjy9q0"></a>Jay</h4>|<h4>Pass</h4>|<h4>Categories labeled correctly and working properly </h4>|
 |<h4>21</h4>|<h4><a name="_u8q6upr3s79q"></a>Jay</h4>|<h4>`           `Pass</h4>|<h4>The search result is in the descending order.</h4>|
-|<h4>API TESTING</h4>|
-|<h4>01</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>02</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>03</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>04</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>05</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>06</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4>07</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
-|<h4><a name="_9v9t3ff06otq"></a>08</h4>|<h4></h4>|<h4></h4>|<h4></h4>|
+
 
 
 
