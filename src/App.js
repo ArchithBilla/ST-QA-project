@@ -23,7 +23,7 @@ const authStatus = (data)=>{
 
  return (
    <>
-  <Navigation page = {page} authUser = {authUser} authStatus = {authStatus} aipData = {aipData}/>
+  <Navigation page = {page} authUser = {authUser} authStatus = {authStatus} aipData = {aipData} setUserData = {setUserData}/>
   <Routes>
   <Route path={'/'} element={<Home pageStatus = {pageStatus} authUser = {authUser} userData = {userData} setApiData = {setApiData}/>}></Route>
   <Route path="signin" element={<Signin pageStatus = {pageStatus} authStatus = {authStatus} setUserData = {setUserData} />} />

@@ -34,6 +34,7 @@ export default function Signin(props) {
         password: password,
       })
       .then((response) => {
+        console.log(response.data)
         props.setUserData(response.data)
         if (response.data.statusMessage === "Signin successful") {
           props.authStatus(response.data.userName)

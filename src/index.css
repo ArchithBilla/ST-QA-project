@@ -130,3 +130,9 @@ border : 5;
    margin-top : 10px; */
 
 }
+
+.centered {
+   margin: 0 auto;
+   display: inline-block;
+   width: auto;
+ }
